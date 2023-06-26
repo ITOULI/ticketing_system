@@ -37,11 +37,11 @@
         </div>
       </div>
       <div class="text-end">
-        <div class="">Sub Total: <span class="fw-bold">£</span>
+        <div class="">Sub Total: <span class="fw-bold">DH</span>
           <div id="subtotal" class="d-inline-flex fw-bold">{{basket.get_subtotal_price}}</div>
         </div>
-        <div id="">Shipping <span class="small">(Next day delivery)</span>: <span class="fw-bold">£11.50</span></div>
-        <div class="pt-2">Total to pay: <span class="fw-bold h5">£</span><span id="total"
+        <div id="">Shipping <span class="small">(Next day delivery)</span>: <span class="fw-bold">DH11.50</span></div>
+        <div class="pt-2">Total to pay: <span class="fw-bold h5">DH</span><span id="total"
             class="fw-bold h5">{{basket.get_total_price}}</span></div>
       </div>
     </div>
@@ -53,11 +53,11 @@
     </div>
     <div class="col-md-7 col-lg-8 p-0">
       {% for item in basket %}
-      {% with product=item.product %}
-      <div class="card mb-3 border-0 product-item" data-index="{{product.id}}">
+      {% with ticket=item.ticket %}
+      <div class="card mb-3 border-0 ticket-item" data-index="{{ticket.id}}">
         <div class="row g-0">
           <div class="col-md-2 d-none d-md-block">
-            {% for image in product.product_image.all %}
+            {% for image in ticket.ticket_image.all %}
             {% if image.is_feature%}
             <img class="img-fluid" alt="Responsive image" src="{{ image.image.url }}" alt="{{ image.image.alt_text }}">
             {% endif %}
@@ -65,20 +65,20 @@
           </div>
           <div class="col-md-10 ps-md-3">
             <div class="card-body p-1">
-              <a class="text-decoration-none text-reset" href="{{item.product.get_absolute_url}}">
-                <p class="card-text pb-3">{{product.title}}</p>
+              <a class="text-decoration-none text-reset" href="{{item.ticket.get_absolute_url}}">
+                <p class="card-text pb-3">{{ticket.title}}</p>
               </a>
               <label for="select">Qty</label>
-              <select id="select{{product.id}}" style="width:50px;height:31px;">
+              <select id="select{{ticket.id}}" style="width:50px;height:31px;">
                 <option value="" selected disabled hidden>{{item.qty}}</option>
                 <option value="">1</option>
                 <option value="">2</option>
                 <option value="">3</option>
                 <option value="">4</option>
               </select>
-              <a type="button" id="update-button" data-index="{{product.id}}"
+              <a type="button" id="update-button" data-index="{{ticket.id}}"
                 class="update-button text-decoration-none small ps-3">Update</a>
-              <a type="button" id="delete-button" data-index="{{product.id}}"
+              <a type="button" id="delete-button" data-index="{{ticket.id}}"
                 class="delete-button text-decoration-none small">Delete</a>
             </div>
           </div>
@@ -100,12 +100,12 @@
       type: "POST",
       url: '{% url "basket:basket_delete" %}',
       data: {
-        productid: $(this).data("index"),
+        ticketid: $(this).data("index"),
         csrfmiddlewaretoken: "{{csrf_token}}",
         action: "post",
       },
       success: function (json) {
-        $('.product-item[data-index="' + prodid + '"]').remove();
+        $('.ticket-item[data-index="' + prodid + '"]').remove();
 
         if (json.qty == 0) {
           total = 0
@@ -131,8 +131,8 @@
       type: "POST",
       url: '{% url "basket:basket_update" %}',
       data: {
-        productid: $(this).data("index"),
-        productqty: $("#select" + prodid + " option:selected").text(),
+        ticketid: $(this).data("index"),
+        ticketqty: $("#select" + prodid + " option:selected").text(),
         csrfmiddlewaretoken: "{{csrf_token}}",
         action: "post",
       },

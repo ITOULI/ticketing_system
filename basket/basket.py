@@ -42,7 +42,7 @@ class Basket:
         basket = self.basket.copy()
 
         for ticket in tickets:
-            basket[str(ticket.id)]["product"] = ticket
+            basket[str(ticket.id)]["ticket"] = ticket
 
         for item in basket.values():
             item["price"] = Decimal(item["price"])

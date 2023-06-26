@@ -2,7 +2,7 @@
 {% load static %}
 {% block stylesheet %}{% static 'store/css/store.css' %}{% endblock %}
 {% block title %}
-{% if product %}{{ product.title }}{% else %}Product{% endif %}
+{% if ticket %}{{ ticket.title }}{% else %}ticket{% endif %}
 {% endblock %}
 {% block content %}
 
@@ -18,7 +18,7 @@
     <div class="col-md-5 ps-3 col-lg-5 order-md-last p-0 order-1">
       <div class="d-grid gap-2">
         <div class="d-flex d-flex-inline justify-content-between">
-          <div><span class="h3">£{{ product.regular_price }}</span>
+          <div><span class="h3">DH{{ ticket.regular_price }}</span>
             <p class="text-muted">includes tax</p>
           </div>
           <div>
@@ -32,9 +32,9 @@
           </div>
         </div>
         <hr>
-        <button type="button" id="add-button" value="{{product.id}}" class="btn btn-success fw500">Add to
+        <button type="button" id="add-button" value="{{ticket.id}}" class="btn btn-success fw500">Add to
           basket</button>
-        <a href="{% url "account:user_wishlist" product.id  %}" class="btn btn-light fw500" role="button" aria-disabled="true">Add to Wish List</a>
+        <a href="{% url "account:user_wishlist" ticket.id  %}" class="btn btn-light fw500" role="button" aria-disabled="true">Add to Wish List</a>
       </div>
     </div>
     <div class="col-md-7 col-lg-7 p-0">
@@ -42,10 +42,10 @@
         <div class="row g-0">
           <div class="col-md-12">
             <div class="card-body p-1">
-              <h1 class="mb-0 h2 pe-4 pb-4">{{ product.title }}</h1>
+              <h1 class="mb-0 h2 pe-4 pb-4">{{ ticket.title }}</h1>
               <div class="bg-light">
 
-                {% for image in product.product_image.all %}
+                {% for image in ticket.ticket_image.all %}
                 {% if image.is_feature %}
                 <img class="img-fluid mx-auto d-block" width="200px" alt="Responsive image" src="{{ image.image.url }}"
                   alt="{{ image.image.alt_text }}">
@@ -70,8 +70,8 @@
         type: 'POST',
         url: '{% url "basket:basket_add" %}',
         data: {
-          productid: $('#add-button').val(),
-          productqty: $('#select option:selected').text(),
+          ticketid: $('#add-button').val(),
+          ticketqty: $('#select option:selected').text(),
           csrfmiddlewaretoken: "{{csrf_token}}",
           action: 'post'
         },

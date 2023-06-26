@@ -1,5 +1,3 @@
-# YT_Django_Project_Ecommerce
-
 ## Instructions
 
 1. Download
@@ -12,7 +10,8 @@ Commands:
     venv\Scripts\activate
     pip install -r requirements.txt
     py manage.py runserver
+    pip install django-admin-soft-dashboard
 
 # Admin login
 1. http://127.0.0.1:8000/admin
-2. a@a.com and password admin"# ticketing_system" 
+2. admin@email.com and password admin "# ticketing_system" 
